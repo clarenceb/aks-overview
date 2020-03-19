@@ -97,6 +97,24 @@ Scale the Azure Votew front deployment and observe change in KubeView:
  kubectl scale --replicas=3 deploy/azure-vote-front -n azure-vote
 ```
 
+Deploy Traefik Ingress Controller
+---------------------------------
+
+Follow steps outlined here: https://github.com/clarenceb/traefik-ingress-example
+
+This will set up the Traefik Ingress Controller.
+
+Update the manifest `apps/azure-vote/azure-vote-ingress.yaml` with your DNS hostname.
+
+Deploy the Ingress object (and updated Service object):
+
+```sh
+kubectl apply -f apps/azure-vote/azure-vote-ingress.yaml -n azure-vote
+```
+
+Access the app through the ingress endpoint in your browser: `https://<DNSNAME>.<LOCATION>.cloudapp.azure.com`
+You should notice that you have a TLS certificate obtained from Let's Encrypt.
+
 Cleanup
 -------
 
@@ -104,6 +122,7 @@ Remove azure-vote app (optional at end of demo):
 
 ```sh
 kubectl delete -f apps/azure-vote/azure-vote-all-in-one.yaml -n azure-vote
+kubectl delete -f apps/azure-vote/azure-vote-ingress.yaml -n azure-vote
 ```
 
 TODO
